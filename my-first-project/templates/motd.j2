@@ -1,0 +1,11 @@
+This is my first line 
+this is     my second      
+ 				3rd   line 
+local variable ==>  {{ local_var  }}
+    this is a fact: {{ansible_hostname }}
+
+ magic variable ==> {{ inventory_hostname }}
+
+{% for host in hosts %}
+{{ host.ip }}  {{ host.name }}
+{% endfor %}

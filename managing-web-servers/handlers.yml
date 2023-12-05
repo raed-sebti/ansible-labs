@@ -1,0 +1,40 @@
+---
+- name:  handlers
+  hosts: servera
+  tasks: 
+  - name: T1 
+    debug: 
+      msg: T1
+    notify: 
+    - h1
+    - h2 
+    changed_when: true 
+  - name: T2 
+    debug: 
+      msg: T2
+    notify: 
+    - h1
+    - h2 
+    changed_when: true 
+
+  - name: flush handlers
+    meta: flush_handlers 
+
+  - name: T3 
+    debug: 
+      msg: T3
+    notify: 
+    - h1
+    - h3 
+    changed_when: true 
+  handlers:
+  - name: h3
+    debug: 
+      msg: h3 
+  - name: h1
+    debug: 
+      msg: h1 
+  - name: h2
+    debug: 
+      msg: h2 
+

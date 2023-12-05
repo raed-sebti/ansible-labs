@@ -1,0 +1,8 @@
+---
+
+custom_vhosts: 
+- {name: app4, document_root: /app4, apache_port: 54000 }
+- {name: app5, document_root: /app5, apache_port: 55000 }
+- {name: app6, document_root: /app6, apache_port: 56000 }
+- {name: app7, document_root: /app7, apache_port: 57000 }
+- {name: app8, document_root: /app8, apache_port: 58000 }

@@ -1,0 +1,7 @@
+---
+- name: Using variables
+  hosts: webservers
+  tasks: 
+  - name: Include tasks file 
+    include: tasks/manage-service.yml 
+...

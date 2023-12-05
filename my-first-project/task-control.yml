@@ -1,0 +1,22 @@
+---
+- name: Manage your service 
+  hosts: webservers
+  vars: 
+    packages: 
+    - httpd 
+    - vsftpd
+  tasks: 
+  - name: Install 
+    yum: 
+      name: "{{ packages }}"
+      state: latest
+  - name: Install 
+    service: 
+      name:  "{{ item.name  }}"
+      state: "{{ item.state }}"
+    loop: 
+    - name: httpd 
+      state: started
+    - name: vsftpd
+      state: started
+...

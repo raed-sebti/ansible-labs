@@ -1,0 +1,10 @@
+<VirtualHost *:{{ item.apache_port }} >
+    DocumentRoot "{{ item.document_root }}"
+    ServerName  {{ ansible_fqdn }}
+    ServerAlias {{ ansible_hostname }}
+</VirtualHost>
+Listen {{ item.apache_port }}
+<Directory {{ item.document_root }}>
+    AllowOverride None
+    Require all granted
+</Directory>

@@ -1,0 +1,18 @@
+---
+- name: Manage your service 
+  hosts: webservers
+  vars: 
+    packages: 
+    - httpd 
+    - vsftpd
+  tasks: 
+  - name: Install {{ pkg }}
+    yum: 
+      name: "{{ packages }}"
+  - name: start & enable {{ svc }}
+    service: 
+      name:    "{{ svc.name    }}"
+      state:   "{{ svc.state   }}"
+      enabled: "{{ svc.enabled }}"
+
+...

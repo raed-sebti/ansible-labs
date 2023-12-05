@@ -1,0 +1,16 @@
+# 1 Playbook   ==> 1..* Plays   
+# 1 Play       ==> 1..1 Config (pattern)
+# 1 Play       ==> 1..* Tasks
+# 1 Task       ==> 1..1 Module 
+# 1 Module     ==> 0..* Args 
+---
+- name:   MY first play 
+  hosts:  webservers
+  tasks: 
+  - name: My first task 
+    ping:     
+  - name: My second task 
+    yum: 
+      name: httpd
+      state: latest 
+...

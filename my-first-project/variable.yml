@@ -1,0 +1,8 @@
+---
+- name: Using variables
+  hosts: webservers
+  tasks: 
+  - name: Debug variable 
+    debug: 
+      msg: " {{ ansible_local['custom']['application']['version'] }} {{ ansible_local.custom.application.name }} {{ ansible_eth1.ipv4.address }} {{ ansible_hostname }} - {{ ansible_fqdn }} {{ var }}" 
+...

@@ -1,0 +1,13 @@
+---
+
+packages:
+- {name: httpd,     state: latest }
+- {name: firewalld, state: latest }
+services:
+- {name: httpd,     state: started, enabled: true }
+- {name: firewalld, state: started, enabled: true }
+common_vhosts: 
+- {name: app1, document_root: /app1, apache_port: 51000 }
+- {name: app2, document_root: /app2, apache_port: 52000 }
+- {name: app3, document_root: /app3, apache_port: 53000 }
+- {name: app9, document_root: /app9, apache_port: 59000 }

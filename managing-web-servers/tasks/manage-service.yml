@@ -1,0 +1,15 @@
+---
+- name: Install packages
+  yum: 
+    name:   "{{ item.name     }}"
+    state:  "{{ item.state    }}"
+  loop:     "{{ packages      }}"
+  
+- name: start & enable services
+  service: 
+    name:    "{{ item.name    }}"
+    state:   "{{ item.state   }}"
+    enabled: "{{ item.enabled }}"
+  loop:      "{{ services     }}"
+
+...

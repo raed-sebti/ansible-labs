@@ -1,0 +1,29 @@
+---
+var: from group_vars  webservers
+pkg: vsftpd 
+svc: 
+  name:    vsftpd
+  state:   restarted
+  enabled: false 
+
+defined: yes
+
+packages:
+- name:  httpd
+  state: latest
+- name:  vsftpd
+  state: latest
+- name:  nfs-utils
+  state: latest
+services: 
+- name:  httpd
+  state: started
+  enabled: true
+- name:  vsftpd
+  state: started
+  enabled: true
+- name:  nfs-server
+  state: started
+  enabled: true
+
+...

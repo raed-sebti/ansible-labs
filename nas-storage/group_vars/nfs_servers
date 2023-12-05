@@ -1,0 +1,24 @@
+---
+packages:
+- name: nfs-utils 
+  state: latest 
+- name: firewalld 
+  state: latest 
+services:
+- name: nfs-server
+  state: started
+  enabled: true 
+- name: firewalld
+  state: started
+  enabled: true 
+rules:
+- service:   nfs
+  state:     enabled
+  immediate: true
+  permanent: true
+
+
+
+
+
+...

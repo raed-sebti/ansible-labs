@@ -1,0 +1,52 @@
+---
+- name: Manage webservers
+  hosts: web_servers
+  tasks: 
+  - name: manage services 
+    include: tasks/manage-service.yml
+  - name: create all document root 
+    file: 
+      path:  "{{ item.document_root }}"
+      state:  directory 
+      mode:      0755 
+      setype:   httpd_sys_content_t 
+    with_items: 
+    - "{{ common_vhosts }}"
+    - "{{ custom_vhosts }}"
+    tags: 
+    - dr
+  - name: Generate configuration files for vhosts 
+    template: 
+      src: templates/httpd-vhosts.j2 
+      dest: /etc/httpd/conf.d/{{ item.name }}.conf 
+    with_items: 
+    - "{{ common_vhosts }}"
+    - "{{ custom_vhosts }}"
+    notify: 
+    - restart_httpd
+
+  - name: Generate web content  
+    template: 
+      src: templates/index.j2 
+      dest: "{{ item.document_root }}/index.html"
+      mode:      0644 
+      setype:   httpd_sys_content_t 
+    with_items: 
+    - "{{ common_vhosts }}"
+    - "{{ custom_vhosts }}"
+  - name:  enable firewalld ports 
+    firewalld : 
+      port: "{{ item.apache_port }}/tcp"
+      state:  enabled
+      immediate: true
+      permanent: true
+    with_items: 
+    - "{{ common_vhosts }}"
+    - "{{ custom_vhosts }}"
+
+  handlers: 
+  - name:  restart_httpd
+    service: 
+      name: httpd
+      state: restarted
+...

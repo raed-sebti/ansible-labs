@@ -1,0 +1,6 @@
+[web_servers]
+servera 
+serverb 
+serverc 
+[rsyslog_servers]
+serverd 

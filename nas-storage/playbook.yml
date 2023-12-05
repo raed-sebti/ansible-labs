@@ -1,0 +1,48 @@
+---
+- name:   Managing nfs servers 
+  hosts:  nfs_servers
+  vars:  
+    shared_path: /shared
+  tasks: 
+  - name: Manage services
+    include: tasks/manage-service.yml 
+  - name: create a shared dir
+    file:
+      path:   "{{ shared_path }}" 
+      state:  directory 
+      mode:   3755 
+      setype: nfs_t 
+      owner:  root 
+      group:  root 
+  - name: export {{ shared_path }}
+    copy:
+      content: |
+        "{{ shared_path }}"  *(rw)      
+      dest: /etc/exports 
+  - name: exportfs 
+    command:  exportfs -rv   
+
+- name:   Managing nfs clients 
+  hosts: nfs_clients 
+  vars: 
+    shared_path: /shared
+    mount_point: /nfs_mp
+  tasks: 
+  - name: Manage services
+    include: tasks/manage-service.yml 
+  - name: create a shared dir
+    file:
+      path:   "{{ mount_point  }}" 
+      state:  directory 
+      setype: nfs_t 
+      owner:  root 
+      group:  root 
+  - name: mount nfs server
+    mount: 
+      src:  serverd:{{ shared_path }}
+      path: "{{ mount_point }}"
+      opts:  defaults
+      fstype:  nfs
+      state:  mounted
+
+...

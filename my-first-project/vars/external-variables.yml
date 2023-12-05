@@ -1,0 +1,13 @@
+---
+var: from play1
+pkg: samba
+services: 
+- service1 
+- service2 
+- service3 
+persons: 
+- name: v1
+  state: v2
+- name: v1
+  state: v2
+...

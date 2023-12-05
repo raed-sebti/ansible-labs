@@ -1,0 +1,36 @@
+---
+- name:   Managing httpd servers 
+  hosts:  webservers
+  tasks: 
+  - name: Install all required packages  
+    yum: 
+      name:    httpd
+      state:   latest
+  - name: Ensure that httpd is up and running 
+    service: 
+      name:    httpd 
+      state:   started
+      enabled: true
+  - name: Enable http service on firewalld 
+    firewalld: 
+      service: http
+      immediate: true 
+      permanent: true
+      state: enabled 
+  - name: Create a new data content 
+    copy: 
+      content: my first web page  
+      dest:    /var/www/html/index.html 
+
+- name: Check application deployment 
+  hosts: serverc
+  tasks: 
+  - name: Check web content 
+    uri: 
+      url: http://servera
+      status_code: 200 
+  - name: Check web content 
+    uri: 
+      url: http://serverb
+      status_code: 500 
+...

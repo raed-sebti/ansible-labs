@@ -1,0 +1,23 @@
+---
+var: from group_vars  webservers
+pkg: httpd 
+svc: 
+  name:    httpd
+  state:   started
+  enabled: true  
+
+packages:
+- name:  httpd
+  state: latest
+- name:  vsftpd
+  state: latest
+services: 
+- name:  httpd
+  state: started
+  enabled: true
+- name:  vsftpd
+  state: started
+  enabled: true
+...
+
+...

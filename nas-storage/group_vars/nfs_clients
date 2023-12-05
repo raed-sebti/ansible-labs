@@ -1,0 +1,17 @@
+---
+packages:
+- name: nfs-utils 
+  state: latest 
+- name: autofs 
+  state: latest 
+services:
+- name: autofs
+  state: started
+  enabled: true 
+rules:
+- service:   nfs
+  state:     enabled
+  immediate: true
+  permanent: true
+
+...

@@ -1,0 +1,22 @@
+---
+- name: Install packages
+  yum: 
+    name:   "{{ item.name     }}"
+    state:  "{{ item.state    }}"
+  loop:     "{{ packages      }}"
+  
+- name: start & enable services
+  service: 
+    name:    "{{ item.name    }}"
+    state:   "{{ item.state   }}"
+    enabled: "{{ item.enabled }}"
+  loop:      "{{ services     }}"
+- name: Manage firewalld 
+  firewalld: 
+    service:   "{{ item.service  }}"
+    state:     "{{ item.state  }}"
+    immediate: "{{ item.immediate  }}"
+    permanent: "{{ item.permanent  }}"
+  loop:      "{{ rules       }}"
+ 
+...

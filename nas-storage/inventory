@@ -1,0 +1,5 @@
+[nfs_servers]
+serverd
+[nfs_clients]
+serverc 
+serverb

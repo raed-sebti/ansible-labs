@@ -1,0 +1,22 @@
+---
+- name: Manage your service 
+  hosts: all
+  vars: 
+    flag: true 
+  tasks: 
+  - name:  stat the motd file  
+    stat:
+      path: /etc/motd
+    register: stat_output 
+
+  - name: Install 
+    yum: 
+      name:  tree
+      state: latest
+    when: 
+    - (( ansible_hostname == "serverb" and flag) or ansible_distribution != "Debian") or not flag  
+    - ansible_hostname in groups.webservers
+    - inventory_hostname != "servera"
+    - stat_output.stat.exists == true 
+    - defined  is defined 
+...

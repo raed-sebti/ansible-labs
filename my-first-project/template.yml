@@ -1,0 +1,14 @@
+---
+- name: Using template 
+  hosts: servera
+  vars: 
+    local_var: from play One
+    hosts: 
+    - { name: google.com, ip: 4.4.2.2}
+    - { name: ibm.com,    ip: 4.4.5.5}
+  tasks:
+  - name: using jinja2 template 
+    template: 
+      src:  templates/motd.j2 
+      dest: /tmp/motd.conf
+... 
